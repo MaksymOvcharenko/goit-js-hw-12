@@ -51,8 +51,6 @@ form.addEventListener('submit', event => {
 });
 btnCheckAdd.addEventListener('click', async () => {
   try {
-    // let rect = imagePlace.getBoundingClientRect();
-    // console.log(rect);
     page += 1;
     loaderPlace.innerHTML = `<div class="loader"></div>`;
     const posts = await pixabayApi(findText, page);
