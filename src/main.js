@@ -67,9 +67,7 @@ btnCheckAdd.addEventListener('click', async () => {
     imagePlace.insertAdjacentHTML('beforeend', markup);
 
     imgBoxLight();
-    // window.scrollBy(1200, window.innerHeight, {
-    //   behavior: 'smooth',
-    // });
+
     window.scrollBy({
       top: 720,
 
