@@ -1,4 +1,6 @@
-export function pixabayApi(findText) {
+import axios from 'axios';
+
+export async function pixabayApi(findText, page) {
   const BASE_URL = 'https://pixabay.com/api/';
 
   const params = new URLSearchParams({
@@ -11,5 +13,28 @@ export function pixabayApi(findText) {
 
   const url = `${BASE_URL}?${params}`;
 
-  return fetch(url).then(res => res.json());
+  try {
+    const BASE_URL = 'https://pixabay.com/api/';
+
+    const params = new URLSearchParams({
+      key: '44040015-64d065a912d04f3627622b428',
+      q: 'car',
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: 'true',
+      per_page: 15,
+      page: page,
+    });
+
+    const url = `${BASE_URL}?${params}`;
+
+    const response = await axios.get(url);
+
+    return response.data;
+  } catch (error) {
+    iziToast.error({
+      position: 'topRight',
+      message: 'Error',
+    });
+  }
 }
