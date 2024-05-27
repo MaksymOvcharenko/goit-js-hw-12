@@ -126,3 +126,35 @@ img {
   font-weight: 400;
   line-height: 24px;
 }
+.loader {
+  display: block;
+  margin: 0 auto;
+}
+.btn {
+  margin: auto;
+  margin-top: 24px;
+  padding: 8px 16px;
+  display: block;
+  border-radius: 8px;
+  background: #4e75ff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+  text-align: left;
+  border: none;
+  color: #ffffff;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+.btn:hover {
+  background: #6c8cff;
+}
+.hidden {
+  display: none;
+}

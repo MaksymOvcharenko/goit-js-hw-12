@@ -1,21 +1,19 @@
 import { pixabayApi } from './js/pixabay-api';
 import { imagesRender } from './js/render-functions';
 import { imgBoxLight } from './js/render-functions';
-
 import iziToast from 'izitoast';
-
 import 'izitoast/dist/css/iziToast.min.css';
-const fetchPostsBtn = document.querySelector('.btn');
+const btnCheckAdd = document.querySelector('.btn');
 const form = document.querySelector('.find-form');
 const imagePlace = document.querySelector('.galleriesBox');
-const loader = document.querySelector('.loader');
+const loaderPlace = document.querySelector('#load');
+
 let page = 1;
 let findText = '';
 form.addEventListener('submit', event => {
   event.preventDefault();
-
+  page = 1;
   imagePlace.innerHTML = '';
-
   const formData = new FormData(form);
   findText = formData.get('find-text');
   if (findText === '') {
@@ -35,33 +33,55 @@ form.addEventListener('submit', event => {
       }
       const markup = imagesRender(data.hits);
       imagePlace.innerHTML = markup;
+      if (data.hits.length === 15) {
+        btnCheckAdd.classList.remove('hidden');
+      }
+
       imgBoxLight();
     })
     .catch(error =>
       iziToast.error({
         position: 'topRight',
-        message: 'Error',
+        message: 'Error2',
       })
     )
     .finally(() => {
       event.target.reset();
     });
 });
-
-import axios from 'axios';
-fetchPostsBtn.addEventListener('click', async () => {
+btnCheckAdd.addEventListener('click', async () => {
   try {
-    const posts = await pixabayApi(findText, page);
-    const markup = imagesRender(data.hits);
-    imagePlace.innerHTML = markup;
-    // Increase the group number
+    // let rect = imagePlace.getBoundingClientRect();
+    // console.log(rect);
     page += 1;
-
-    // Replace button text after first request
-    if (page > 1) {
-      fetchPostsBtn.textContent = 'Fetch more posts';
+    loaderPlace.innerHTML = `<div class="loader"></div>`;
+    const posts = await pixabayApi(findText, page);
+    if (posts.hits.length === 0) {
+      btnCheckAdd.classList.add('hidden');
+      iziToast.info({
+        position: 'topRight',
+        message:
+          'Sorry, there are no images matching your search query. Please try again!',
+      });
     }
+    loaderPlace.innerHTML = '';
+    const markup = imagesRender(posts.hits);
+    imagePlace.insertAdjacentHTML('beforeend', markup);
+
+    imgBoxLight();
+    // window.scrollBy(1200, window.innerHeight, {
+    //   behavior: 'smooth',
+    // });
+    window.scrollBy({
+      top: 720,
+
+      behavior: 'smooth',
+    });
   } catch (error) {
     console.log(error);
+    iziToast.error({
+      position: 'topRight',
+      message: 'Error1',
+    });
   }
 });
