@@ -29,7 +29,7 @@ export async function pixabayApi(findText, page) {
     const url = `${BASE_URL}?${params}`;
 
     const response = await axios.get(url);
-
+    console.log(response.data);
     return response.data;
   } catch (error) {
     iziToast.error({
